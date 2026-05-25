@@ -15,29 +15,36 @@ def dashboard():
     for issue in issues:
         try:
             fields = issue.get("fields", {})
+            summary = fields.get("summary", "No Summary")
 
+            # ✅ Get priority
             priority = calculate_priority(issue)
 
             # 🔥 CI/CD decision logic
             if priority == "High":
                 action = "Trigger CI/CD"
-                trigger_github_action()   # 🚀 REAL TRIGGER
+
+                # ✅ Pass task details to GitHub
+                trigger_github_action(summary, priority)
+
             elif priority == "Medium":
                 action = "Conditional Run"
             else:
                 action = "Skip"
 
+            # ✅ Append task data
             tasks.append({
                 "key": issue.get("key", "N/A"),
-                "summary": fields.get("summary", "No Summary"),
+                "summary": summary,
                 "priority": priority,
                 "action": action
             })
 
         except Exception as e:
-            print("Error:", e)
+            print("Error processing issue:", e)
 
     return render_template("dashboard.html", tasks=tasks)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

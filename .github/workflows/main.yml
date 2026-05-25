@@ -9,5 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run Smart CI/CD
-        run: echo "🚀 Triggered from Flask App!"
+      - name: Show Task Info
+        run: |
+          echo "Task: ${{ github.event.client_payload.task }}"
+          echo "Priority: ${{ github.event.client_payload.priority }}"

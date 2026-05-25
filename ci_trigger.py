@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-def trigger_github_action():
+def trigger_github_action(task_name, priority):
     token = os.getenv("GITHUB_TOKEN")
     repo = os.getenv("GITHUB_REPO")
 
@@ -16,13 +16,16 @@ def trigger_github_action():
     }
 
     data = {
-        "event_type": "trigger-ci"
+        "event_type": "trigger-ci",
+        "client_payload": {
+            "task": task_name,
+            "priority": priority
+        }
     }
 
     response = requests.post(url, headers=headers, json=data)
 
     if response.status_code == 204:
-        print("✅ CI/CD Triggered Successfully")
+        print(f"✅ Triggered CI for: {task_name} ({priority})")
     else:
-        print("❌ Failed to trigger CI/CD")
-        print(response.text)
+        print("❌ Failed to trigger CI/CD:", response.text)
