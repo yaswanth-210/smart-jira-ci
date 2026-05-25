@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Jira Dashboard</title>
+</head>
+<body>
+
+<h2>Smart Jira Task Dashboard</h2>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Task</th>
+        <th>Priority</th>
+        <th>Action</th>
+    </tr>
+
+    {% for task in tasks %}
+    <tr>
+        <td>{{ task.key }}</td>
+        <td>{{ task.summary }}</td>
+
+        <td>
+            {% if task.priority == "High" %}
+                <span style="color:red; font-weight:bold;">High</span>
+            {% elif task.priority == "Medium" %}
+                <span style="color:orange; font-weight:bold;">Medium</span>
+            {% else %}
+                <span style="color:green; font-weight:bold;">Low</span>
+            {% endif %}
+        </td>
+
+        <td>
+            {% if task.action == "Trigger CI/CD" %}
+                <span style="color:green;">🚀 Run</span>
+            {% elif task.action == "Conditional Run" %}
+                <span style="color:orange;">⚠️ Maybe</span>
+            {% else %}
+                <span style="color:red;">❌ Skip</span>
+            {% endif %}
+        </td>
+
+    </tr>
+    {% endfor %}
+
+</table>
+
+</body>
+</html>

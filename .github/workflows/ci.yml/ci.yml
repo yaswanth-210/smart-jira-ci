@@ -1,0 +1,13 @@
+name: Smart CI Pipeline
+
+on:
+  repository_dispatch:
+    types: [trigger-ci]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run CI
+        run: echo "🚀 Smart CI/CD Pipeline Triggered!"
