@@ -1,0 +1,12 @@
+name: Smart CI Pipeline
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test Run
+        run: echo "🚀 Workflow is working!"
