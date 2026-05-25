@@ -1,12 +1,13 @@
 name: Smart CI Pipeline
 
 on:
-  push:
+  repository_dispatch:
+    types: [trigger-ci]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test Run
-        run: echo "🚀 Workflow is working!"
+      - name: Run Smart CI/CD
+        run: echo "🚀 Triggered from Flask App!"
